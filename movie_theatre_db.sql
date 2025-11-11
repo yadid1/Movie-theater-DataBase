@@ -1,6 +1,6 @@
 -- ======================================================
 -- Database: movie_theatre_db
--- Author: Team 7 
+-- Author: Team FREAKS
 -- Phase B - Logical Design & Implementation
 -- ======================================================
 
