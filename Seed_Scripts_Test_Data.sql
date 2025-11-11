@@ -1,3 +1,10 @@
+-- ======================================================
+-- Database: movie_theatre_db
+-- Author: Team FREAKS
+-- Phase B - Logical Design & Implementation
+-- ======================================================
+--STILL NEED TO UPDATE DATA TO FIT SPECIFIC RELAISTIC REQUIREMENTS BAWSED ON PHASE B DOCUMENTATION
+
 USE movie_theatre_db;
 
 -- =============== THEATRES ===============
