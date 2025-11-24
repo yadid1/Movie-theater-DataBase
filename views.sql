@@ -18,7 +18,7 @@ GROUP BY
 
 
 
---VIEW 1 — Top-N Movies by Tickets Sold (time-bounded)
+--VIEW 2 — Upcoming Sold-Out Showtimes per Theatre
 CREATE OR REPLACE VIEW v_sold_out_showtimes AS
 SELECT
     th.theatre_ID,
@@ -52,7 +52,7 @@ GROUP BY
 HAVING active_tickets = sc.total_seats;
 
 
---VIEW 1 — Top-N Movies by Tickets Sold (time-bounded)
+--VIEW 3 — Theatre Utilization (Next 7 Days)
 CREATE OR REPLACE VIEW v_theatre_utilization_next_7_days AS
 SELECT
     th.theatre_ID,
