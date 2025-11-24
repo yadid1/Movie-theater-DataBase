@@ -25,16 +25,14 @@ Suggested project structure:
 	•	stored_procedures.sql – sell_ticket stored procedure.
 	•	backup_script.sql – Backup script that creates _bak_YYYYMMDD tables.
 	•	relational_schema.pdf – Relational model and constraints.
-	•	data_dictionary_partA.pdf – From Part A (optional for this submission).
-	•	assumptions_partA.pdf – From Part A (optional for this submission).
+	•	data_dictionary_partA.pdf – From Part A.
+	•	assumptions_partA.pdf – From Part A.
 	•	README.md – This file.
 
 ⸻
 
 3. Prerequisites
 	•	XAMPP with MariaDB running locally.
-	•	phpMyAdmin accessible at http://localhost/phpmyadmin.
-	•	MariaDB user: root (default), no password (or adjust as needed).
 
 ⸻
 
@@ -101,3 +99,12 @@ Step 6: Run backup script
 
 This will:
 	•	Create backup tables for the current date, with names like <Table>_bak_YYYYMMDD.
+
+
+TEST QUERIES IN ANOTHER FILE
+
+6. Notes and Assumptions
+	•	All tables are designed to be in at least 3NF. The normalization rationale and expected cardinalities are described in relational_schema.pdf.
+	•	Guest checkout is supported by allowing customer_ID in Ticket to be nullable (if that choice was made in your final schema).
+	•	Refunds are modeled using Ticket.status, and refunds are audited via TicketAudit and triggers.
+	•	Pricing is stored at the per-ticket level and calculated at the time of sale by the sell_ticket procedure.
