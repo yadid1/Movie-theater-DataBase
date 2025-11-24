@@ -1,75 +1,103 @@
-# Movie Theatre Database and Web Application
+Movie Theatre Database – Part B (Logical Design & Build)
 
-This project is a comprehensive database and web application designed to manage a multi-location movie theatre chain. The system handles movie listings, theatre and auditorium management, showtime scheduling, seat layouts, customer management, and ticket sales.
+1. Overview
 
-This project was developed in three main parts:
-1.  **Part A: Conceptual Design** - An Entity-Relationship Diagram (ERD) to model the database.
-2.  **Part B: Logical Design & Implementation** - Translation of the ERD into a relational schema, implemented in MariaDB with advanced SQL objects.
-3.  **Part C: Application** - A functional web application built with PHP and CSS to interact with the database.
+This project implements a movie theatre booking database in MariaDB based on the ERD from Part A.
+The system supports theatres, auditoriums, seats, movies, showtimes, customers, tickets, refunds, reporting views, triggers, a ticket-selling stored procedure, and a backup script.
 
----
+Main features:
+	•	Normalized schema in 3NF with PK, FK, UNIQUE, CHECK, and NOT NULL constraints.
+	•	Realistic seed data: multiple theatres, auditoriums, seat maps, movies, showtimes, customers, and tickets.
+	•	Views for reporting (top movies, sold-out showtimes, utilization).
+	•	Triggers for seat availability enforcement and audit logging.
+	•	Stored procedure sell_ticket that validates, prices, and inserts tickets.
+	•	Backup script that clones all main tables into dated backup tables.
 
-## Technology Stack LAMP
+⸻
 
-* **Database:** MariaDB
-* **Backend:** PHP (using PDO for database connection)
-* **Frontend:** HTML, CSS
-* **Database Design:** Chen Notation (ERD), Relational Schema (3NF)
+2. Files
 
----
+Suggested project structure:
+	•	ddl.sql – CREATE DATABASE and CREATE TABLE statements with constraints and indexes.
+	•	seed.sql – DML seed script with realistic data.
+	•	views.sql – All required views.
+	•	triggers.sql – TicketAudit table and triggers.
+	•	stored_procedures.sql – sell_ticket stored procedure.
+	•	backup_script.sql – Backup script that creates _bak_YYYYMMDD tables.
+	•	relational_schema.pdf – Relational model and constraints.
+	•	data_dictionary_partA.pdf – From Part A (optional for this submission).
+	•	assumptions_partA.pdf – From Part A (optional for this submission).
+	•	README.md – This file.
 
-## Project Features
+⸻
 
-### Part A: Conceptual Design
+3. Prerequisites
+	•	XAMPP with MariaDB running locally.
+	•	phpMyAdmin accessible at http://localhost/phpmyadmin.
+	•	MariaDB user: root (default), no password (or adjust as needed).
 
-* **ER Diagram:** A detailed ERD using Chen notation was created to map all entities, attributes, and relationships.
-* **Key Entities:** `Theatre`, `Auditorium`, `Seat`, `Movie`, `Showtime`, `Customer`, `Ticket`, and `Pricing`.
-* **Business Rules:** The model enforces key business rules, such as:
-    * An auditorium belongs to exactly one theatre.
-    * A showtime screens one movie in one auditorium with no overlaps.
-    * A ticket represents one specific seat for one showtime.
-    * Variable pricing is supported by showtime and seat type.
-* **Documentation:** Includes a full data dictionary and a list of assumptions.
+⸻
 
-### Part B: Logical Design & Database Implementation
+4. Load Order (Setup Steps)
 
-* **Relational Schema:** The ERD was converted to a 3NF relational schema with all primary keys, foreign keys, and constraints (`UNIQUE`, `CHECK`, `NOT NULL`) defined.
-* **Data Implementation:** The database was populated with a large, realistic seed dataset, including theatres, movies, customers, and ticket sales.
-* **Advanced Database Objects:**
-    * **Views:**
-        1.  `TopMoviesByTicketsSold`: Reports on top-performing movies.
-        2.  `UpcomingSoldOutShowtimes`: Lists sold-out shows by theatre.
-        3.  `TheatreUtilizationReport`: Calculates the percentage of seats sold for the next 7 days.
-    * **Triggers:**
-        1.  An `ON INSERT` trigger on the `Ticket` table validates seat availability before a sale.
-        2.  An `ON UPDATE` trigger on the `Ticket` table frees a seat when a ticket status is changed to 'REFUNDED'.
-    * **Stored Procedures:**
-        1.  `sell_ticket()`: A single procedure that validates and processes a ticket sale, handling pricing, seat availability, and data insertion atomically.
-    * **Indexes:** Implemented to optimize performance for common query patterns.
+Follow these steps in order for a clean setup.
 
-### Part C: Web Application
+Step 1: Create schema (DDL)
+	1.	Open phpMyAdmin.
+	2.	Start MySQL in XAMPP.
+	3.	In phpMyAdmin, click the SQL tab.
+	4.	Paste and run the contents of ddl.sql.
 
-A user-facing web application built with PHP provides core functionality for customers and managers.
+This will:
+	•	Create database movie_theatre_db.
+	•	Create all tables: Theatre, Auditorium, Seat, Movie, Showtime, Customer, Ticket, TicketAudit.
+	•	Define all PKs, FKs, UNIQUE constraints, CHECKs (where supported), and indexes.
 
-* **Movie Browsing:** List all movies with filtering by rating, format, theatre, and date.
-* **Showtime Finder:** Allows users to select a theatre and date to see all available showtimes.
-* **Seat Map:** A visual grid (HTML table or divs) displays the seat layout for a selected showtime, marking sold vs. available seats.
-* **Ticket Purchase:** A simulated purchase flow that captures user input, validates seat selection, and calls the `sell_ticket` stored procedure.
-* **Ticket Management:** A "My Tickets" page allows users to look up their purchases (by email or order code) and process refunds.
-* **Reports:** Read-only pages that display the data from the three required database views.
+Step 2: Seed data (DML)
+	1.	In phpMyAdmin, select the movie_theatre_db database.
+	2.	Click the SQL tab.
+	3.	Paste and run the contents of seed.sql.
 
----
+This will:
+	•	Insert at least 3 theatres and 10 auditoriums.
+	•	Generate 3 seat maps (different auditorium sizes).
+	•	Insert 12+ movies.
+	•	Insert 80 showtimes.
+	•	Insert 60 customers.
+	•	Insert 400+ tickets with some seats remaining unsold.
 
-## Security & Best Practices
+Step 3: Create views
+	1.	With movie_theatre_db selected, open the SQL tab.
+	2.	Paste and run views.sql.
 
-The application was built with security and robustness in mind:
+This will create:
+	•	v_movie_ticket_sales
+	•	v_sold_out_showtimes
+	•	v_theatre_utilization_next_7_days
 
-* **SQL Injection Prevention:** All database queries are executed using **PDO with prepared statements**.
-* **Cross-Site Scripting (XSS) Prevention:** All user-generated content is escaped using `htmlspecialchars` before being rendered on a page.
-* **Cross-Site Request Forgery (CSRF) Protection:** Forms that perform write actions (purchase, refund) are protected with CSRF tokens.
-* **Input Validation:** All server-side inputs are strictly validated (e.g., IDs are integers, emails are validated with `FILTER_VALIDATE_EMAIL`).
-* **Secure Configuration:** Database credentials and other secrets are stored in a `config.php` or `.env` file, which is excluded from the repository (via `.gitignore`).
+Step 4: Create audit table and triggers
+	1.	With movie_theatre_db selected, open the SQL tab.
+	2.	Paste and run triggers.sql.
 
----
+This will:
+	•	Create TicketAudit (if not already created in DDL).
+	•	Create:
+	•	trg_ticket_before_insert
+	•	trg_ticket_after_insert
+	•	trg_ticket_after_update_refund
 
-## Project Structure
+Step 5: Create stored procedure
+
+If your MariaDB version required running mysql_upgrade, do that once before this step.
+	1.	With movie_theatre_db selected, open the SQL tab.
+	2.	Paste and run stored_procedures.sql.
+
+This will:
+	•	Create the sell_ticket procedure.
+
+Step 6: Run backup script
+	1.	With movie_theatre_db selected, open the SQL tab.
+	2.	Paste and run backup_script.sql.
+
+This will:
+	•	Create backup tables for the current date, with names like <Table>_bak_YYYYMMDD.
