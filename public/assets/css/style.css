@@ -1,0 +1,197 @@
+/* =======================
+   Base page styles
+   ======================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #000;
+    color: #f0f0f0;
+}
+
+a {
+    color: #6ca8ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+}
+
+th, td {
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+
+th {
+    font-weight: 600;
+}
+
+/* =======================
+   Layout / header / nav
+   ======================= */
+
+.site-header {
+    padding: 1rem 1.5rem 0.5rem;
+    background: #050505;
+    border-bottom: 1px solid #222;
+}
+
+.site-title {
+    margin: 0 0 0.5rem 0;
+}
+
+.site-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.site-nav a {
+    color: #9bc3ff;
+}
+
+.site-nav a:hover {
+    color: #cfe0ff;
+}
+
+.nav-group {
+    position: relative;
+}
+
+.nav-group > span {
+    cursor: default;
+}
+
+.nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 1.3rem;
+    left: 0;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    min-width: 150px;
+    z-index: 10;
+}
+
+.nav-group:hover .nav-dropdown {
+    display: block;
+}
+
+.nav-dropdown a {
+    display: block;
+    padding: 0.4rem 0.7rem;
+    white-space: nowrap;
+}
+
+.nav-dropdown a:hover {
+    background: #222;
+}
+
+.site-main {
+    padding: 1.5rem;
+}
+
+/* =======================
+   Seat map styles
+   ======================= */
+
+.seat-legend {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.seat-grid-wrapper {
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.seat-screen {
+    display: inline-block;
+    padding: 0.3rem 2rem;
+    margin-bottom: 0.75rem;
+    border-radius: 999px;
+    border: 1px solid #666;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ccc;
+}
+
+.seat-grid {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    background: #111;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.seat-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.seat-row-label {
+    color: #fff;
+    width: 1.8rem;
+    text-align: right;
+    margin-right: 0.4rem;
+    font-weight: 600;
+}
+
+.seat {
+    display: inline-block;
+    width: 1.8rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: 0 0.15rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border: 1px solid #444;
+}
+
+.seat-available {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.seat-available:hover {
+    filter: brightness(1.15);
+}
+
+.seat-sold {
+    background: #666;
+    color: #222;
+    cursor: not-allowed;
+}
+
+/* =======================
+   Footer
+   ======================= */
+
+footer {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid #222;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: #aaa;
+}
