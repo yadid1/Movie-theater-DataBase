@@ -1,0 +1,308 @@
+/* =======================
+   Base page styles
+   ======================= */
+
+* {
+    box-sizing: border-box;
+}
+
+@keyframes gradientMove {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #fefefe;
+
+    /* Background image */
+    background-image: url("../img/freak_background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Dark overlay for readability */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: -1;
+}
+
+a {
+    color: #82b2ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+}
+
+th, td {
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+
+th {
+    font-weight: 600;
+}
+
+/* =======================
+   Layout / header / nav
+   ======================= */
+
+.site-header {
+    padding: 1rem 1.5rem 0.5rem;
+
+    background: linear-gradient(
+        270deg,
+        #833AB4,
+        #FD1D1D,
+        #FCB045,
+        #833AB4
+    );
+    background-size: 600% 600%;
+
+    animation: gradientMove 8s ease infinite;
+
+    border-bottom: 1px solid #222;
+}
+
+.site-title {
+    margin: 0 0 0.5rem 0;
+}
+
+.site-nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.site-nav a {
+    position: relative;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;   /* makes it a bubble */
+    color: #f0f0f0;
+    transition: 
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        color 0.25s ease;
+}
+
+.site-nav a:hover {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+    color: #ffffff;
+}
+
+.nav-group {
+    position: relative;
+}
+
+.nav-group > span {
+    cursor: default;
+}
+
+.nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 1.3rem;
+    left: 0;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    min-width: 150px;
+    z-index: 10;
+}
+
+.nav-group:hover .nav-dropdown {
+    display: block;
+}
+
+.nav-dropdown a {
+    display: block;
+    padding: 0.4rem 0.7rem;
+    white-space: nowrap;
+}
+
+.nav-dropdown a:hover {
+    background: #222;
+}
+
+.site-main {
+    padding: 1.5rem;
+}
+
+/* =======================
+   Seat map styles
+   ======================= */
+
+.seat-legend {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.seat-grid-wrapper {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* CENTERED SCREEN */
+.seat-screen {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 0.75rem;
+
+    padding: 0.3rem 2rem;
+    border-radius: 999px;
+    border: 1px solid #666;
+
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ccc;
+}
+
+/* Seat grid container */
+.seat-grid {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    background: rgba(17, 17, 17, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.seat-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.seat-row-label {
+    color: #fff;
+    width: 1.8rem;
+    text-align: right;
+    margin-right: 0.4rem;
+    font-weight: 600;
+}
+
+.seat {
+    display: inline-block;
+    width: 1.8rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    text-align: center;
+    margin: 0 0.15rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border: 1px solid #444;
+}
+
+/* Available seat */
+.seat-available {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.seat-available:hover {
+    filter: brightness(1.15);
+}
+
+/* Sold seat */
+.seat-sold {
+    background: #666;
+    color: #222;
+    cursor: not-allowed;
+}
+
+/* =======================
+   Footer
+   ======================= */
+
+footer {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid #222;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: #aaa;
+    background: rgba(5, 5, 5, 0.85);
+}
+/* =======================
+   Movies page layout (table left, posters right)
+   ======================= */
+
+.movies-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.poster-panel {
+    position: sticky;
+    top: 1rem;
+
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 1rem;
+
+    box-shadow: 0 0 14px rgba(0,0,0,0.6);
+}
+
+.poster-panel h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.poster-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+.poster-grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 10px rgba(0,0,0,0.45);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.poster-grid img:hover {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+}
+
+/* Responsive: stack posters below table on smaller screens */
+@media (max-width: 980px) {
+    .movies-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .poster-panel {
+        position: static;
+    }
+}
