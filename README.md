@@ -43,3 +43,5 @@ This project was developed to demonstrate proficiency in database design, backen
 Status
 
 The application is a fully functional minimum viable product supporting movie browsing, showtime viewing, seat selection, and ticket purchasing.
+
+This project was made by Bryan Orozco, Yadid Alamilla , Andrew Vu , Thatch bruce le, Yousuf Gul , Javi Guzman
